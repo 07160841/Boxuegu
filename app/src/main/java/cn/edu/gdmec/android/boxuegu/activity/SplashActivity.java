@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.Timer;
@@ -18,9 +19,11 @@ import cn.edu.gdmec.android.boxuegu.R;
  * Created by lenovo on 2018/3/11.
  */
 
-public class SplashActivity extends AppCompatActivity {
+public class  SplashActivity extends AppCompatActivity {
 
     private TextView tv_version;
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,12 +34,14 @@ public class SplashActivity extends AppCompatActivity {
     }
     private void init(){
         tv_version = (TextView) findViewById(R.id.tv_version);
+
+
         try {
             PackageInfo info = getPackageManager().getPackageInfo(getPackageName(),0);
-            tv_version.setText("v"+info.versionName);
+           tv_version.setText("版本号："+info.versionName);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-            tv_version.setText("v");
+            tv_version.setText("版本号：");
         }
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
