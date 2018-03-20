@@ -138,8 +138,8 @@ public LinearLayout mBottomLayout;
     }
     }
     private void removeAllView(){
-        for(int i = 0;i<mBottomLayout.getChildCount();i++){
-            mBottomLayout.getChildAt(i).setVisibility(View.GONE);
+        for(int i = 0;i<mBodyLayout.getChildCount();i++){
+            mBodyLayout.getChildAt(i).setVisibility(View.GONE);
         }
     }
         /*
