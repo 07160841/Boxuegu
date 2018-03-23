@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import cn.edu.gdmec.android.boxuegu.R;
+import cn.edu.gdmec.android.boxuegu.view.ExercisesView;
 import cn.edu.gdmec.android.boxuegu.view.MyInfoView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -34,6 +35,7 @@ public LinearLayout mBottomLayout;
     private TextView tv_back;
     private  TextView tv_main_title;
     private RelativeLayout rl_title_bar;
+    private ExercisesView mExercisesView;
     private MyInfoView mMyInfoView;
 
     @Override
@@ -162,9 +164,17 @@ public LinearLayout mBottomLayout;
         switch (viewIndex){
             case 0:
                 //课程界面
+
                 break;
             case 1:
                 //习题界面
+                if (mExercisesView==null){
+                    mExercisesView=new ExercisesView(this);
+                    mBodyLayout.addView(mExercisesView.getView());
+                }else{
+                    mExercisesView.getView();
+                }
+                mExercisesView.showView();
                 break;
             case 2:
             if (mMyInfoView == null){

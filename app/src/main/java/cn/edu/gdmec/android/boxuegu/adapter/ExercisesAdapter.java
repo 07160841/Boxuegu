@@ -30,12 +30,12 @@ public class ExercisesAdapter extends BaseAdapter {
     //获取Item的总数
     @Override
     public int getCount() {
-        return ebl==null?0:ebl.size();
+        return ebl==null ? 0 : ebl.size();
     }
 //根据position得到对应Item的id
     @Override
     public ExercisesBean getItem(int position) {
-        return ebl==null?null:ebl.get(position);
+        return ebl==null ? null : ebl.get(position);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class ExercisesAdapter extends BaseAdapter {
         //获取position对应的Item的数据对象
         final ExercisesBean bean=getItem(position);
         if (bean!=null){
-            vh.order.setText(position+1+"");
+            vh.order.setText(position + 1 + "");
             vh.title.setText(bean.title);
             vh.content.setText(bean.content);
             vh.order.setBackgroundResource(bean.background);
@@ -76,7 +76,7 @@ public class ExercisesAdapter extends BaseAdapter {
 
             }
         });
-        return null;
+        return convertView;
     }
     class ViewHolder{
         public TextView title,content;
