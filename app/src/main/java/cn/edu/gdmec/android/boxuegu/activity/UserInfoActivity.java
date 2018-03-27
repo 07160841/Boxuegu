@@ -91,7 +91,7 @@ public class UserInfoActivity extends AppCompatActivity
             case R.id.tv_back:
                 this.finish();
                 break;
-            case R.id.tv_nickName:
+            case R.id.rl_nickName:
                 String name=tv_nickName.getText().toString();
                 Bundle bdName=new Bundle();
                 bdName.putString("content",name);

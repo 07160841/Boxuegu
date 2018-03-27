@@ -152,8 +152,8 @@ public LinearLayout mBottomLayout;
          */
     private void setInitStatus(){
         clearBottomImageState();
-        setSelectStatus(0);
-        createView(0);
+        setSelectStatus(2);
+        createView(2);
     }
     private void selectDisplayView(int index){
     removeAllView();
