@@ -25,7 +25,7 @@ public class DBUtils {
         helper = new SQLiteHelper(context);
         db = helper.getWritableDatabase();
     }
-
+//静态方法是使用公共内存空间的，就是说所有对象都可以直接引用
     public static DBUtils getInstance(Context context) {
         if (instance == null) {
             instance = new DBUtils(context);
