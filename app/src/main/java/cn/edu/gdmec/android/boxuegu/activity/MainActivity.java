@@ -231,7 +231,7 @@ public LinearLayout mBottomLayout;
             if (isLogin){
                 //登录成功时显示课程界面
                 clearBottomImageState();
-                selectDisplayView(0);
+                selectDisplayView(2);
             }
             if (mMyInfoView!=null){
                 //登录成功或退出登录时根据isLogin设置我的界面

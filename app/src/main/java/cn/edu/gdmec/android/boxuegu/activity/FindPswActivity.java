@@ -1,6 +1,7 @@
 package cn.edu.gdmec.android.boxuegu.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,8 @@ public class FindPswActivity extends AppCompatActivity {
     private TextView tv_back;
     private String from;
     private TextView tv_reset_psw,tv_user_name;
+    private TextView tv_newpsw;
+    private EditText et_newpsw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +44,11 @@ public class FindPswActivity extends AppCompatActivity {
         tv_reset_psw= (TextView) findViewById(R.id.tv_reset_psw);
         et_user_name= (EditText) findViewById(R.id.et_user_name);
         tv_user_name= (TextView) findViewById(R.id.tv_user_name);
+        tv_newpsw= (TextView) findViewById(R.id.tv_newpsw);
+        et_newpsw= (EditText) findViewById(R.id.et_newpsw);
         if("security".equals(from)){
             tv_main_title.setText("设置密保");
+            btn_validate.setText("设置");
         }else{
             tv_main_title.setText("找回密码");
             tv_user_name.setVisibility(View.VISIBLE);
@@ -84,9 +90,25 @@ public class FindPswActivity extends AppCompatActivity {
                         Toast.makeText(FindPswActivity.this,"输入的密保不正确",Toast.LENGTH_SHORT).show();
                         return;
                     }else{
-                        tv_reset_psw.setVisibility(View.VISIBLE);
-                        tv_reset_psw.setText("初始密码：123456");
-                        savePsw(userName);
+                        tv_newpsw.setVisibility(View.VISIBLE);
+                        et_newpsw.setVisibility(View.VISIBLE);
+                        btn_validate.setText("设置");
+                        String newpsw=et_newpsw.getText().toString();
+                        btn_validate.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                String newpsw=et_newpsw.getText().toString();
+                                if (TextUtils.isEmpty(newpsw)){
+                                    Toast.makeText(FindPswActivity.this,"请输入新密码",Toast.LENGTH_SHORT).show();
+                                    return;
+                                }else{
+                                    Toast.makeText(FindPswActivity.this,"新密码设置成功",Toast.LENGTH_SHORT).show();
+
+                                    FindPswActivity.this.finish();
+                                }
+                            }
+                        });
+                        savePsw(userName,newpsw);
                     }
                 }
             }
@@ -95,8 +117,8 @@ public class FindPswActivity extends AppCompatActivity {
 
     }
 //保存初始化密码
-    private void savePsw(String userName) {
-        String md5Psw= MD5Utils.md5("123456");
+    private void savePsw(String userName,String newpsw) {
+        String md5Psw= MD5Utils.md5(newpsw);
         SharedPreferences sp=getSharedPreferences("loginInfo",MODE_PRIVATE);
         SharedPreferences.Editor editor =sp.edit();
         editor.putString(userName,md5Psw);
@@ -105,7 +127,7 @@ public class FindPswActivity extends AppCompatActivity {
 //保存密码到SharedPrefences中
     private boolean isExistUserName(String userName) {
         boolean hasUserName=false;
-        SharedPreferences  sp=getSharedPreferences("loginInfo",MODE_PRIVATE);
+        SharedPreferences sp=getSharedPreferences("loginInfo",MODE_PRIVATE);
         String spPsw=sp.getString(userName,"");
         if (!TextUtils.isEmpty(spPsw)) {
             hasUserName=true;
