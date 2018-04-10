@@ -24,11 +24,12 @@ public class UserInfoActivity extends AppCompatActivity
         implements View.OnClickListener{
     private TextView tv_back;
     private TextView tv_main_title;
-    private TextView tv_nickName,tv_signature,tv_user_name,tv_sex;
-    private RelativeLayout rl_nickName,rl_sex,rl_signature,rl_title_bar;
+    private TextView tv_nickName,tv_signature,tv_user_name,tv_sex,tv_QQ;
+    private RelativeLayout rl_nickName,rl_sex,rl_signature,rl_title_bar,rl_QQ;
     private String spUserName;
     private static final int CHANGE_NICKNAME=1;//修改昵称的自定义常量
     private static final int CHANGE_SIGNATURE=2;//修改签名 的自定义常量
+    private static final int CHANGE_QQ=3;//修改QQ的自定义常量
     private String new_info;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class UserInfoActivity extends AppCompatActivity
         rl_nickName.setOnClickListener(this);
         rl_sex.setOnClickListener(this);
         rl_signature.setOnClickListener(this);
+        rl_QQ.setOnClickListener(this);
     }
 
     private void initData() {
@@ -58,6 +60,7 @@ public class UserInfoActivity extends AppCompatActivity
             bean.nickName="程序猿";
             bean.sex="男";
             bean.signature="我爱写代码";
+            bean.QQ="未添加";
             DBUtils.getInstance(this).saveUserInfo(bean);
         }
         setValue(bean);
@@ -68,6 +71,7 @@ public class UserInfoActivity extends AppCompatActivity
         tv_user_name.setText(bean.userName);
         tv_sex.setText(bean.sex);
         tv_signature.setText(bean.signature);
+        tv_QQ.setText(bean.QQ);
     }
 
     private void init() {
@@ -83,6 +87,8 @@ public class UserInfoActivity extends AppCompatActivity
         tv_user_name= (TextView) findViewById(R.id.tv_user_name);
         tv_sex= (TextView) findViewById(R.id.tv_sex);
         tv_signature= (TextView) findViewById(R.id.tv_signature);
+        rl_QQ= (RelativeLayout) findViewById(R.id.rl_QQ);
+        tv_QQ= (TextView) findViewById(R.id.tv_QQ);
     }
 
     @Override
@@ -111,8 +117,17 @@ public class UserInfoActivity extends AppCompatActivity
                 bdSignature.putInt("flag",2);
                 enterActivityForResult(ChangeUserInfoActivity.class,CHANGE_SIGNATURE,bdSignature);
                 break;
-                default:
-                    break;
+
+            case R.id.rl_QQ:
+                String QQ1=tv_QQ.getText().toString();
+                Bundle QQ = new Bundle();
+                QQ.putString("content",QQ1);
+                QQ.putString("title","QQ号");
+                QQ.putInt("flag",3);
+                enterActivityForResult(ChangeUserInfoActivity.class,CHANGE_QQ,QQ);
+                break;
+            default:
+                break;
         }
     }
 //设置性别弹出框
@@ -177,6 +192,18 @@ public class UserInfoActivity extends AppCompatActivity
                 //更新数据库中的签名字段
                     DBUtils.getInstance(UserInfoActivity.this).updataUserInfo(
                             "signature",new_info,spUserName);
+                }
+                break;
+            case CHANGE_QQ://个人资料修改界面回传过来的QQ数据
+                if (data!=null){
+                    new_info=data.getStringExtra("QQ");
+                    if (TextUtils.isEmpty(new_info)){
+                        return;
+                    }
+                    tv_QQ.setText(new_info);
+                    //更新数据库中的QQ字段
+                    DBUtils.getInstance(UserInfoActivity.this).updataUserInfo(
+                            "QQ",new_info,spUserName);
                 }
                 break;
         }
