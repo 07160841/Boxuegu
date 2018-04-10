@@ -23,9 +23,10 @@ public class FindPswActivity extends AppCompatActivity {
     private Button btn_validate;
     private TextView tv_back;
     private String from;
-    private TextView tv_reset_psw,tv_user_name;
+    private TextView tv_user_name;
     private TextView tv_newpsw;
     private EditText et_newpsw;
+    private Button btn_set;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,18 +42,20 @@ public class FindPswActivity extends AppCompatActivity {
         tv_back= (TextView) findViewById(R.id.tv_back);
         et_validate_name= (EditText) findViewById(R.id.et_validate_name);
         btn_validate= (Button) findViewById(R.id.btn_validate);
-        tv_reset_psw= (TextView) findViewById(R.id.tv_reset_psw);
+        btn_set= (Button) findViewById(R.id.btn_set);
         et_user_name= (EditText) findViewById(R.id.et_user_name);
         tv_user_name= (TextView) findViewById(R.id.tv_user_name);
         tv_newpsw= (TextView) findViewById(R.id.tv_newpsw);
         et_newpsw= (EditText) findViewById(R.id.et_newpsw);
         if("security".equals(from)){
             tv_main_title.setText("设置密保");
+            btn_validate.setVisibility(View.VISIBLE);
             btn_validate.setText("设置");
         }else{
             tv_main_title.setText("找回密码");
             tv_user_name.setVisibility(View.VISIBLE);
             et_user_name.setVisibility(View.VISIBLE);
+            btn_validate.setVisibility(View.VISIBLE);
         }
         tv_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,9 +95,10 @@ public class FindPswActivity extends AppCompatActivity {
                     }else{
                         tv_newpsw.setVisibility(View.VISIBLE);
                         et_newpsw.setVisibility(View.VISIBLE);
-                        btn_validate.setText("设置");
-                        String newpsw=et_newpsw.getText().toString();
-                        btn_validate.setOnClickListener(new View.OnClickListener() {
+                        btn_validate.setVisibility(View.GONE);
+                        btn_set.setVisibility(View.VISIBLE);
+
+                        btn_set.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 String newpsw=et_newpsw.getText().toString();
@@ -103,12 +107,13 @@ public class FindPswActivity extends AppCompatActivity {
                                     return;
                                 }else{
                                     Toast.makeText(FindPswActivity.this,"新密码设置成功",Toast.LENGTH_SHORT).show();
-
+                                    String userName=et_user_name.getText().toString().trim();
+                                    savePsw(userName,newpsw);
                                     FindPswActivity.this.finish();
                                 }
                             }
                         });
-                        savePsw(userName,newpsw);
+
                     }
                 }
             }

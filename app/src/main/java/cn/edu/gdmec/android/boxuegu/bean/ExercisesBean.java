@@ -15,6 +15,6 @@ public class ExercisesBean {
     public String b;
     public String c;
     public String d;
-    public String answer;
+    public int answer;
     public int select;
 }
