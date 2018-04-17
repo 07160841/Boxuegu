@@ -15,9 +15,17 @@
         android:textSize="16sp"
         android:textStyle="bold"
         android:visibility="gone"/>
-    <ListView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/lv_list"
-        android:divider="@null"/>
+   <android.support.v7.widget.RecyclerView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:layout_weight="1"
+       android:id="@+id/rl_list"
+       ></android.support.v7.widget.RecyclerView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:id="@+id/tv_dibu"
+        android:text="第一页"/>
 </LinearLayout>

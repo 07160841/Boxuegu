@@ -1,23 +1,22 @@
 package cn.edu.gdmec.android.boxuegu.activity;
 
-import android.content.pm.ActivityInfo;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.gdmec.android.boxuegu.R;
-import cn.edu.gdmec.android.boxuegu.adapter.ExercisesDetailAdapter;
+import cn.edu.gdmec.android.boxuegu.adapter.ExercisesDetailListItemAdapter;
 import cn.edu.gdmec.android.boxuegu.bean.ExercisesBean;
 import cn.edu.gdmec.android.boxuegu.utils.AnalysisUtils;
 
@@ -27,17 +26,17 @@ public class ExercisesDetailActivity extends AppCompatActivity {
     private TextView tv_back;
     private TextView tv_main_title;
     private RelativeLayout rl_title_bar;
-    private ListView lv_list;
+    private RecyclerView rl_list;
     private String title;
     private int id;
     private List<ExercisesBean> ebl;
-    private ExercisesDetailAdapter adapter;
+    private ExercisesDetailListItemAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercises_detail);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         id=getIntent().getIntExtra("id",0);
         title=getIntent().getStringExtra("title");
         ebl=new ArrayList<ExercisesBean>();
@@ -61,13 +60,13 @@ public class ExercisesDetailActivity extends AppCompatActivity {
         tv_main_title = (TextView) findViewById(R.id.tv_main_title);
         rl_title_bar = (RelativeLayout) findViewById(R.id.title_bar);
         rl_title_bar.setBackgroundColor(Color.parseColor("#30B4FF"));
-        lv_list = (ListView) findViewById(R.id.lv_list);
+
         TextView tv=new TextView(this);
         tv.setTextColor(Color.parseColor("#000000"));
         tv.setTextSize(16.0f);
-        tv.setText("一、选择题");
+        tv.setText("选择题");
         tv.setPadding(10,15,0,0);
-        lv_list.addHeaderView(tv);
+
         tv_main_title.setText(title);
         tv_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +74,7 @@ public class ExercisesDetailActivity extends AppCompatActivity {
                 ExercisesDetailActivity.this.finish();
             }
         });
-        adapter=new ExercisesDetailAdapter(ExercisesDetailActivity.this, new ExercisesDetailAdapter.OnSelectListener() {
+        adapter=new ExercisesDetailListItemAdapter(ExercisesDetailActivity.this, new ExercisesDetailListItemAdapter.OnSelectListener() {
             @Override
             public void onSelectA(int position, ImageView iv_a, ImageView iv_b, ImageView iv_c, ImageView iv_d) {
                 //判断如果答案不是1即A选项
@@ -197,6 +196,16 @@ public class ExercisesDetailActivity extends AppCompatActivity {
             }
         });
         adapter.setData(ebl);
-        lv_list.setAdapter(adapter);
+        rl_list = (RecyclerView) findViewById(R.id.rl_list);
+        rl_list.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        rl_list.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==000){
+
+        }
     }
 }
