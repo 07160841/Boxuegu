@@ -29,6 +29,7 @@ public class ExercisesDetailActivity extends AppCompatActivity {
     private RecyclerView rl_list;
     private String title;
     private int id;
+    private TextView tv_dibu;
     private List<ExercisesBean> ebl;
     private ExercisesDetailListItemAdapter adapter;
 
@@ -61,12 +62,7 @@ public class ExercisesDetailActivity extends AppCompatActivity {
         rl_title_bar = (RelativeLayout) findViewById(R.id.title_bar);
         rl_title_bar.setBackgroundColor(Color.parseColor("#30B4FF"));
 
-        TextView tv=new TextView(this);
-        tv.setTextColor(Color.parseColor("#000000"));
-        tv.setTextSize(16.0f);
-        tv.setText("选择题");
-        tv.setPadding(10,15,0,0);
-
+        tv_dibu=findViewById(R.id.tv_dibu);
         tv_main_title.setText(title);
         tv_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,17 +191,18 @@ public class ExercisesDetailActivity extends AppCompatActivity {
                 AnalysisUtils.setABCDEnable(false,iv_a,iv_b,iv_c,iv_d);
             }
         });
+       adapter.setOnOnItemListener(new ExercisesDetailListItemAdapter.OnItemListener() {
+           @Override
+           public void onItem(View view, int position) {
+               int s=position+1;
+                tv_dibu.setText("第"+s+"题完成，共5题");
+           }
+       });
         adapter.setData(ebl);
         rl_list = (RecyclerView) findViewById(R.id.rl_list);
         rl_list.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
         rl_list.setAdapter(adapter);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==000){
 
-        }
-    }
 }

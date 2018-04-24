@@ -75,15 +75,14 @@ public class AnalysisUtils {
     }
     //设置选项是否可选
     public static void setABCDEnable(boolean value,
-                                     ImageView iv_a,
-                                     ImageView iv_b,
-                                     ImageView iv_c,
-                                     ImageView iv_d){
-        iv_a.setEnabled(value);
-        iv_b.setEnabled(value);
-        iv_c.setEnabled(value);
-        iv_d.setEnabled(value);
-
+                                        ImageView iv_a,
+                                        ImageView iv_b,
+                                        ImageView iv_c,
+                                        ImageView iv_d){
+                                        iv_a.setEnabled(value);
+                                        iv_b.setEnabled(value);
+                                        iv_c.setEnabled(value);
+                                        iv_d.setEnabled(value);
 
     }
 

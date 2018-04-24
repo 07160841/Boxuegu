@@ -82,8 +82,8 @@ public class ExercisesAdapter extends BaseAdapter {
                 intent.putExtra("id",bean.id);
                 //标题0
                 intent.putExtra("title",bean.title);
-                ((Activity)mContext.startActivityForResult(intent,000);
-
+                //((Activity)mContext.startActivityForResult(intent,000);
+                mContext.startActivity(intent);
 
 
             }

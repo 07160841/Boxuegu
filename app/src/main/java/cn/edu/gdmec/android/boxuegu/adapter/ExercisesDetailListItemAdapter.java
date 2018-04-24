@@ -23,6 +23,8 @@ public class ExercisesDetailListItemAdapter extends RecyclerView.Adapter<Exercis
    private ArrayList<String> selectedPosition=new ArrayList<String>();
     private List<ExercisesBean> objects=new ArrayList<ExercisesBean>();
     private OnSelectListener onSelectListener;
+    private OnItemListener onItemListener;
+    private TextView tv_bottom;
     private Context context;
     private LayoutInflater layoutInflater;
 
@@ -31,6 +33,10 @@ public class ExercisesDetailListItemAdapter extends RecyclerView.Adapter<Exercis
         this.onSelectListener=onSelectListener;
         this.layoutInflater=LayoutInflater.from(context);
     }
+    public void setOnOnItemListener(OnItemListener onItemListener){
+        this.onItemListener=onItemListener;
+    }
+
     public void setData(List<ExercisesBean> objects){
         this.objects=objects;
         notifyDataSetChanged();
@@ -44,7 +50,8 @@ public class ExercisesDetailListItemAdapter extends RecyclerView.Adapter<Exercis
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
+
             initializeViews(objects.get(position),holder,position);
     }
 
@@ -178,6 +185,7 @@ private void initializeViews(ExercisesBean object,final ViewHolder vh,final  int
         vh.iv_a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                onItemListener.onItem(view,position);
                 //判断SelectedPosition中是否包含此时点击的position
                 if (selectedPosition.contains(""+position)){
                     selectedPosition.remove(""+position);
@@ -191,6 +199,7 @@ private void initializeViews(ExercisesBean object,final ViewHolder vh,final  int
         vh.iv_b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                onItemListener.onItem(view,position);
                 //判断SelectedPosition中是否包含此时点击的position
                 if (selectedPosition.contains(""+position)){
                     selectedPosition.remove(""+position);
@@ -204,6 +213,7 @@ private void initializeViews(ExercisesBean object,final ViewHolder vh,final  int
         vh.iv_c.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                onItemListener.onItem(view,position);
                 //判断SelectedPosition中是否包含此时点击的position
                 if (selectedPosition.contains(""+position)){
                     selectedPosition.remove(""+position);
@@ -217,6 +227,7 @@ private void initializeViews(ExercisesBean object,final ViewHolder vh,final  int
         vh.iv_d.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                onItemListener.onItem(view,position);
                 //判断SelectedPosition中是否包含此时点击的position
                 if (selectedPosition.contains(""+position)){
                     selectedPosition.remove(""+position);
@@ -232,7 +243,7 @@ private void initializeViews(ExercisesBean object,final ViewHolder vh,final  int
     protected  class ViewHolder extends RecyclerView.ViewHolder {
         public TextView subject, tv_a,tv_b,tv_c,tv_d;
         public ImageView iv_a,iv_b,iv_c,iv_d;
-        public  ViewHolder(View view){
+        public ViewHolder(View view){
             super(view);
             subject= (TextView) view.findViewById(R.id.tv_subject);
             iv_a=view.findViewById(R.id.iv_a);
@@ -244,12 +255,18 @@ private void initializeViews(ExercisesBean object,final ViewHolder vh,final  int
             tv_c=view.findViewById(R.id.tv_c);
             tv_d=view.findViewById(R.id.tv_d);
 
+
         }
     }
     public interface OnSelectListener{
         void onSelectA(int position ,ImageView iv_a,ImageView iv_b,ImageView iv_c,ImageView iv_d);
-        void onSelectB(int position ,ImageView iv_a,ImageView iv_b,ImageView iv_c,ImageView iv_d);
+        void onSelectB(int position , ImageView iv_a, ImageView iv_b, ImageView iv_c, ImageView iv_d);
         void onSelectC(int position ,ImageView iv_a,ImageView iv_b,ImageView iv_c,ImageView iv_d);
         void onSelectD(int position ,ImageView iv_a,ImageView iv_b,ImageView iv_c,ImageView iv_d);
+    }
+
+    public interface OnItemListener{
+    void onItem(View view,int position);
+
     }
 }

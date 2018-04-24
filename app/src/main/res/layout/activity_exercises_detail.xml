@@ -27,5 +27,6 @@
         android:textSize="20sp"
         android:gravity="center"
         android:id="@+id/tv_dibu"
-        android:text="第一页"/>
+        android:text="第1页"
+        android:textColor="#000000"/>
 </LinearLayout>
